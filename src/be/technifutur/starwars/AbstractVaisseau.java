@@ -1,18 +1,13 @@
 package be.technifutur.starwars;
 
-import com.sun.security.jgss.GSSUtil;
-
-import java.sql.SQLOutput;
-
-public class Vaisseau {
-
+public abstract class AbstractVaisseau {
     private String name;
     private int nbMissiles;
     public static final int MAX_MISSILES = 5;
     private boolean enVol = false;
-    private  int nbEnVol = 0;
+    private int nbEnVol = 0;
 
-    public Vaisseau(String name) {
+    public AbstractVaisseau(String name) {
         this.name = name;
     }
 
@@ -25,7 +20,7 @@ public class Vaisseau {
     }
 
 
-    public void addMissiles(int nbr) {
+    public final void addMissiles(int nbr) {
         this.nbMissiles = this.nbMissiles + nbr;
         if (this.nbMissiles < 0) {
             this.nbMissiles = 0;
@@ -50,7 +45,7 @@ public class Vaisseau {
     public void atterrir() {
         if (enVol) {
             System.out.println(name + " atterri");
-            enVol= false;
+            enVol = false;
             this.addEnVol(-1);
         } else {
             System.out.println(name + " déjà au sol");
@@ -68,14 +63,27 @@ public class Vaisseau {
         }
     }
 
-    public boolean  isEnVol() {
-       return enVol;
+    public boolean isEnVol() {
+        return enVol;
     }
 
-    public  void addEnVol(int a){
+    public void addEnVol(int a) {
         nbEnVol += a;
     }
+
     public int nombreEnVol() {
         return nbEnVol;
     }
+
+    public abstract void afficheCamps();
+
+    @Override
+    public String toString() {
+        return "AbstractVaisseau{" +
+                "name='" + name + '\'' +
+                ", nbMissiles=" + nbMissiles +
+                ", enVol=" + enVol +
+                '}';
+    }
+
 }
